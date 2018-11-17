@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Rates are cool</title>
+    <% include ../partials/head.ejs %>
 </head>
 <body>
-<h3>Your Requested Rate</h3>
+<div class="container">
+
+<h1>Your Requested Rate</h1>
 <ul>
     <li>Mail Type: <%= mailType %></li>
     <li>Weight: <%= weight %></li>
     <li><strong>Rate: $<%= rate %></strong></li>
 </ul>
+
+    <button class="btn btn-primary" onclick="goBack()">Get another Rate</button>
+
+</div>
+<% include ../partials/scripts.ejs %>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

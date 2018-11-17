@@ -3,17 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <script>
+        function validateForm() {
+            let weightInput = document.getElementById('weight');
+            let enteredWeight = weightInput.value;
+            let mailType = document.getElementById('mailType').value;
+            let invalidWeightTip = document.getElementById('invalid-weight');
+            let isValid = true;
+            console.log(mailType);
+            switch (mailType) {
+                case 'Letter (Stamped)':
+                case 'Letter (Metered)':
+                    if (enteredWeight > 3.5) {
+                        isValid = false;
+                        invalidWeightTip.innerHTML = "Weight must be no more than 3.5oz for this mail type";
+                    }
+                    break;
+                case 'Large Envelope (Flat)':
+                case 'First-Class Package Service—Retail':
+                    if (enteredWeight > 13) {
+                        isValid = false;
+                        invalidWeightTip.innerHTML = "Weight must be no more than 13oz for this mail type";
+                    }
+                    break;
+            }
+            if(!isValid) {
+                weightInput.classList.add('is-invalid');
+            }
+            return isValid;
+        }
+    </script>
+
 </head>
 <body>
-    <form method="post" action="getRate">
-        <label for="weight">Weight</label><input type="text" name="weight" id="weight"> <br>
-        <label for="mailType">Mail Type</label><select id="mailType" name="mailType">
-            <option name="letter-stamped">Letter (Stamped)</option>
-            <option name="letter-metered">Letter (Metered)</option>
-            <option name="large-envelope">Large Envelope (Flat)</option>
-            <option name="first-class-package">First-Class Package Service—Retail</option>
-    </select>
-        <input type="submit" value="Submit">
+<div class="container">
+    <h1>Postal Rate Calculator</h1>
+    <h6>Just enter the weight and type of mail below</h6>
+    <form id='rateForm' method="post" action="getRate" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="weight">Weight</label>
+            <input class='form-control' type="text" name="weight" id="weight" placeholder="Weight in ounces">
+            <div class="invalid-feedback" id="invalid-weight">
+
+            </div>
+        </div>
+        <div class="form-group">
+        <label for="mailType">Mail Type</label>
+            <select id="mailType" name="mailType" class='form-control' >
+                <option name="letter-stamped">Letter (Stamped)</option>
+                <option name="letter-metered">Letter (Metered)</option>
+                <option name="large-envelope">Large Envelope (Flat)</option>
+                <option name="first-class-package">First-Class Package Service—Retail</option>
+             </select>
+        </div>
+        <input class='btn btn-primary'  type="submit" value="Submit">
     </form>
+</div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
