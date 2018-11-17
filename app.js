@@ -10,7 +10,7 @@ app.set('views', path.join(__dirname,'views'));
 app.set('view engine', 'ejs');
 
 
-app.get('/', () => res.write('index.html'));
+app.get('/', (req,res) => res.write('index.html'));
 app.all('/getRate', function(req,res) {
     const mailType = req.body.mailType;
     const weight = req.body.weight;
